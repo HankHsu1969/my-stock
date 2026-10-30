@@ -28,7 +28,7 @@
 
 #### 步驟 1：下載並解壓縮
 
-1. 到 [Releases 頁面](../../releases/latest) 下載最新版的 `my-stock-x.x.x.zip`
+1. 到 [Releases 頁面](https://github.com/HankHsu1969/my-stock/releases/latest) 下載最新版的 `my-stock-x.x.x.zip`
 2. 把 ZIP **解壓縮到一個固定的資料夾**，例如 `D:\My-Stock`
 
 > ⚠️ 安裝後**不能刪除或搬移**這個資料夾，Chrome 每次都會從這裡讀取擴充功能。
