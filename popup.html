@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Stock 自選股</title>
+  <link rel="icon" href="icons/icon32.png">
+  <link rel="stylesheet" href="popup.css">
+  <script src="theme.js"></script>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand"><img src="icons/icon32.png" alt="" width="22" height="22"><span>My Stock 自選股</span></div>
+      <div class="search">
+        <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+        <input id="search" type="text" placeholder="搜尋代號或名稱，按 Enter 加入自選" autocomplete="off" spellcheck="false" autofocus>
+        <ul id="suggest" class="suggest" hidden></ul>
+      </div>
+      <button id="btnRefresh" class="icon-btn" title="立即更新">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.34-5.66"/><path d="M20 4v5h-5"/></svg>
+      </button>
+      <button id="btnExpand" class="icon-btn" title="在新分頁開啟（大畫面）">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6"/><path d="m20 4-7 7"/><path d="M10 20H4v-6"/><path d="m4 20 7-7"/></svg>
+      </button>
+    </header>
+
+    <section id="summary" class="summary">
+      <div class="card">
+        <label>總資產</label>
+        <b id="sumAsset" class="money">—</b>
+        <small id="sumAssetSub"></small>
+      </div>
+      <div class="card">
+        <label>投入成本</label>
+        <b id="sumCost" class="money">—</b>
+        <small id="sumCount"></small>
+      </div>
+      <div class="card">
+        <label>未實現損益</label>
+        <b id="sumPnl" class="money">—</b>
+        <small id="sumPnlPct"></small>
+      </div>
+      <div class="card">
+        <label>今日損益</label>
+        <b id="sumDay" class="money">—</b>
+        <small id="sumDayPct"></small>
+      </div>
+      <button id="btnPrivacy" class="icon-btn eye" title="隱藏／顯示金額">
+        <svg class="eye-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
+        <svg class="eye-closed" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.6 5.1A10.4 10.4 0 0 1 12 5c6.4 0 10 7 10 7a17.6 17.6 0 0 1-3.2 4.1M6.6 6.6C3.8 8.4 2 12 2 12s3.6 7 10 7a9.7 9.7 0 0 0 5.4-1.6"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>
+      </button>
+      <p class="summary-hint">點個股右側的「＋持股」輸入張數與均價，就能即時計算總資產與損益。</p>
+    </section>
+
+    <div class="table-wrap">
+      <table class="quotes">
+        <thead>
+          <tr>
+            <th class="handle-col"></th>
+            <th class="stock-col">個股</th>
+            <th class="num">今價</th>
+            <th class="num">漲跌</th>
+            <th class="num">高 / 低</th>
+            <th class="spark-col">走勢</th>
+            <th class="num wide">成交量(張)</th>
+            <th class="num">持有</th>
+            <th class="num wide">市值</th>
+            <th class="num wide">今日損益</th>
+            <th class="num">損益</th>
+            <th class="num wide">時間</th>
+            <th class="act-col"></th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <div id="empty" class="empty" hidden>
+        <p>這個分組還沒有自選股</p>
+        <small>在上方搜尋框輸入代號或名稱（例如 2330、台積電），按 Enter 加入。</small>
+      </div>
+    </div>
+
+    <nav class="tabbar">
+      <div id="groupTabs" class="tabs"></div>
+      <button id="btnEditGroup" class="tab-edit" title="分組改名／刪除">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4Z"/><path d="m13.5 6.5 4 4"/></svg>
+      </button>
+    </nav>
+
+    <footer class="footbar">
+      <span id="status" class="status"></span>
+      <div class="foot-actions">
+        <div class="menu-wrap">
+          <button id="btnExport" class="ghost-btn" aria-haspopup="menu">匯出</button>
+          <div id="exportMenu" class="menu" role="menu" hidden>
+            <button data-export="csv" role="menuitem">CSV：目前分組（可用 Excel 開啟）</button>
+            <button data-export="copy" role="menuitem">複製目前分組到剪貼簿</button>
+            <button data-export="json" role="menuitem">JSON：完整備份（所有分組）</button>
+          </div>
+        </div>
+        <button id="btnImport" class="ghost-btn">匯入</button>
+        <button id="btnSettings" class="ghost-btn">設定</button>
+      </div>
+    </footer>
+  </div>
+
+  <dialog id="dlgEdit">
+    <form id="formEdit" class="dlg">
+      <h2 id="editTitle"></h2>
+      <div class="field-row">
+        <label class="field">
+          <span>顯示名稱</span>
+          <input id="fName" type="text" maxlength="20">
+        </label>
+        <label class="field">
+          <span>分組</span>
+          <select id="fGroup"></select>
+        </label>
+      </div>
+      <div class="field-row">
+        <label class="field">
+          <span>持有張數</span>
+          <input id="fLots" type="number" min="0" step="any" inputmode="decimal" placeholder="0">
+          <small id="lotsHint" class="hint"></small>
+        </label>
+        <label class="field">
+          <span>平均成本（元／股）</span>
+          <input id="fCost" type="number" min="0" step="any" inputmode="decimal" placeholder="0">
+          <button type="button" id="btnUsePrice" class="link-btn">帶入現價</button>
+        </label>
+      </div>
+      <p class="hint">零股請輸入小數，例如 250 股 = 0.25 張。</p>
+      <div id="editPreview" class="preview"></div>
+      <div class="dlg-actions">
+        <button type="button" id="btnDelete" class="danger-btn">移除此股</button>
+        <span class="spacer"></span>
+        <button type="button" class="ghost-btn" data-close>取消</button>
+        <button type="submit" class="primary-btn">儲存</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="dlgSettings">
+    <form id="formSettings" class="dlg">
+      <h2>設定</h2>
+      <div class="field-row">
+        <label class="field">
+          <span>外觀</span>
+          <select id="sTheme">
+            <option value="system">跟隨系統（Windows 設定）</option>
+            <option value="light">淺色</option>
+            <option value="dark">深色</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>自動更新頻率</span>
+          <select id="sRefresh">
+            <option value="5">每 5 秒</option>
+            <option value="10">每 10 秒</option>
+            <option value="30">每 30 秒</option>
+            <option value="60">每 60 秒</option>
+          </select>
+        </label>
+      </div>
+      <div class="field-row">
+        <label class="field">
+          <span>漲跌顏色</span>
+          <select id="sColor">
+            <option value="tw">紅漲綠跌（台股）</option>
+            <option value="us">綠漲紅跌（美股）</option>
+          </select>
+        </label>
+      </div>
+      <label class="check"><input id="sIncludeCost" type="checkbox"> 損益扣除賣出手續費與證交稅（估算）</label>
+      <div id="feeRow" class="field-row">
+        <label class="field">
+          <span>手續費折扣（折）</span>
+          <input id="sDiscount" type="number" min="0.1" max="10" step="0.1" inputmode="decimal">
+        </label>
+        <label class="field">
+          <span>最低手續費（元）</span>
+          <input id="sMinFee" type="number" min="0" step="1" inputmode="numeric">
+        </label>
+      </div>
+      <p class="hint">手續費 = 成交金額 × 0.1425% × 折扣；證交稅：股票 0.3%、ETF 0.1%、債券 ETF 停徵。</p>
+      <div class="dlg-actions">
+        <button type="button" id="btnReloadIndex" class="ghost-btn">重新下載股票清單</button>
+        <span class="spacer"></span>
+        <button type="submit" class="primary-btn">完成</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="dlgImport">
+    <form id="formImport" class="dlg">
+      <h2>匯入自選股</h2>
+      <p class="hint">CSV 或代號清單（例如：2330, 0050, 2454）會匯入目前分組；JSON 完整備份檔會還原所有分組。</p>
+      <textarea id="importText" rows="7" placeholder="在這裡貼上內容…" spellcheck="false"></textarea>
+      <div class="import-file">
+        <button type="button" id="btnPickFile" class="ghost-btn">選擇檔案…</button>
+        <input id="importFile" type="file" accept=".json,.csv,.txt,application/json,text/csv,text/plain" hidden>
+        <span id="importFileName" class="hint"></span>
+      </div>
+      <div class="radio-row">
+        <label><input type="radio" name="importMode" value="merge" checked> 合併（保留現有股票）</label>
+        <label><input type="radio" name="importMode" value="replace"> 取代（清空後匯入）</label>
+      </div>
+      <p id="importError" class="error-text"></p>
+      <div class="dlg-actions">
+        <span class="spacer"></span>
+        <button type="button" class="ghost-btn" data-close>取消</button>
+        <button type="submit" class="primary-btn">匯入</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="dlgGroup">
+    <form id="formGroup" class="dlg">
+      <h2>分組設定</h2>
+      <label class="field">
+        <span>分組名稱</span>
+        <input id="gName" type="text" maxlength="12" required>
+      </label>
+      <label class="field">
+        <span>現金部位（計入這個分組的總資產，選填）</span>
+        <input id="gCash" type="number" min="0" step="any" inputmode="decimal" placeholder="0">
+      </label>
+      <p id="gInfo" class="hint"></p>
+      <div class="dlg-actions">
+        <button type="button" id="btnDeleteGroup" class="danger-btn">刪除分組</button>
+        <span class="spacer"></span>
+        <button type="button" class="ghost-btn" data-close>取消</button>
+        <button type="submit" class="primary-btn">儲存</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" hidden></div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

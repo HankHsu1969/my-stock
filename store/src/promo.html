@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <title>商店宣傳圖塊 440×280</title>
+  <style>
+    html, body { margin: 0; width: 440px; height: 280px; overflow: hidden; }
+    body {
+      position: relative;
+      box-sizing: border-box;
+      display: flex; align-items: center; gap: 22px;
+      padding: 0 34px;
+      background: linear-gradient(135deg, #e3edff 0%, #f7faff 60%, #e2f2ff 100%);
+      color: #1c2330;
+      font-family: "Microsoft JhengHei", "Segoe UI", sans-serif;
+    }
+    img { width: 112px; height: 112px; flex: none; }
+    h1 { margin: 0 0 8px; font-size: 30px; font-weight: 800; line-height: 1.2; letter-spacing: .5px; }
+    h1 small { display: block; font-size: 22px; font-weight: 700; color: #2f6bff; letter-spacing: 2px; }
+    p { margin: 0; font-size: 14px; line-height: 1.6; color: #4a5568; }
+    svg { position: absolute; left: 0; right: 0; bottom: 0; width: 440px; height: 70px; }
+  </style>
+</head>
+<body>
+  <img src="../../icons/icon128.png" alt="">
+  <div>
+    <h1>My Stock<small>台股自選股</small></h1>
+    <p>即時報價・當日走勢<br>持股損益・分組管理</p>
+  </div>
+  <svg viewBox="0 0 440 70" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 58 L40 52 L80 56 L120 44 L160 48 L200 36 L240 40 L280 26 L320 32 L360 18 L400 22 L440 10 L440 70 L0 70 Z" fill="#2f7bff" opacity=".08"/>
+    <path d="M0 58 L40 52 L80 56 L120 44 L160 48 L200 36 L240 40 L280 26 L320 32 L360 18 L400 22 L440 10" fill="none" stroke="#2f7bff" stroke-width="2" opacity=".35"/>
+  </svg>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Stock 自選股 隱私權政策 / Privacy Policy</title>
+  <style>
+    :root { --text: #1c2330; --muted: #5b6577; --line: #e5e9f0; --accent: #1f6feb; --bg: #ffffff; }
+    @media (prefers-color-scheme: dark) {
+      :root { --text: #e4e8ef; --muted: #9aa4b5; --line: #283041; --accent: #5b9dff; --bg: #12161e; }
+    }
+    body {
+      margin: 0; padding: 40px 16px 64px;
+      background: var(--bg); color: var(--text);
+      font: 16px/1.75 "Segoe UI", "Microsoft JhengHei", "PingFang TC", "Noto Sans TC", sans-serif;
+    }
+    main { max-width: 760px; margin: 0 auto; }
+    h1 { font-size: 28px; line-height: 1.3; margin: 0 0 6px; }
+    h2 { font-size: 20px; margin: 36px 0 8px; padding-top: 20px; border-top: 1px solid var(--line); }
+    .date { color: var(--muted); margin: 0 0 24px; }
+    ul { padding-left: 1.3em; }
+    li { margin: 4px 0; }
+    code { font-size: 14px; }
+    a { color: var(--accent); }
+    .lang { margin-top: 56px; padding-top: 8px; border-top: 3px solid var(--line); }
+  </style>
+</head>
+<body>
+<main>
+  <h1>My Stock 自選股 隱私權政策</h1>
+  <p class="date">生效日期：2026 年 10 月 30 日</p>
+
+  <p>本政策說明 Chrome 擴充套件「My Stock 自選股」（以下稱「本擴充套件」）如何處理你的資料。簡單來說：<strong>你的資料只存在你自己的瀏覽器裡，開發者看不到，也不會收集。</strong></p>
+
+  <h2>我們儲存哪些資料</h2>
+  <p>你在本擴充套件中輸入的以下內容，會用 Chrome 提供的 <code>chrome.storage.local</code> 儲存在你的電腦上：</p>
+  <ul>
+    <li>自選股清單與分組名稱</li>
+    <li>持有張數、平均成本、自訂名稱與各分組的現金部位</li>
+    <li>設定（外觀主題、更新頻率、漲跌顏色、手續費折扣等）</li>
+    <li>股票代號與名稱的公開清單快取（用於搜尋）</li>
+  </ul>
+  <p>這些資料不會上傳到開發者或任何伺服器，也不會與任何人分享。移除本擴充套件時，這些資料會一併刪除。</p>
+
+  <h2>網路連線</h2>
+  <p>為了顯示行情，本擴充套件會直接向下列公開資料來源查詢。查詢時只會送出要查詢的<strong>股票代號</strong>，不會送出你的持股、成本或任何個人資料：</p>
+  <ul>
+    <li>臺灣證券交易所基本市況報導（mis.twse.com.tw）：即時報價</li>
+    <li>Yahoo 奇摩股市（tw.stock.yahoo.com）與 Yahoo Finance（query1／query2.finance.yahoo.com）：當日走勢資料</li>
+    <li>臺灣證券交易所 OpenAPI（openapi.twse.com.tw）與證券櫃檯買賣中心 OpenAPI（www.tpex.org.tw）：股票代號與名稱清單</li>
+  </ul>
+  <p>和瀏覽一般網站一樣，這些服務可能會記錄連線所需的技術資訊（例如 IP 位址），並依其各自的隱私權政策處理。本擴充套件與上述機構沒有任何關聯。</p>
+
+  <h2>我們不做的事</h2>
+  <ul>
+    <li>不收集、不出售、不轉讓任何使用者資料</li>
+    <li>不使用分析、追蹤或廣告服務</li>
+    <li>不讀取你瀏覽的網頁內容</li>
+    <li>不執行從網路下載的程式碼</li>
+  </ul>
+
+  <h2>匯出與匯入</h2>
+  <p>你可以自行把清單匯出成 CSV 或 JSON 檔案，檔案只會存到你指定的位置。匯入時，檔案內容只在你的瀏覽器中處理。</p>
+
+  <h2>政策變更</h2>
+  <p>若本政策有變更，會更新本頁面並修改生效日期。</p>
+
+  <h2>聯絡方式</h2>
+  <p>對本政策有任何問題，請來信：<a href="mailto:hank222@gmail.com">hank222@gmail.com</a></p>
+
+  <section class="lang" lang="en">
+    <h1>My Stock Privacy Policy</h1>
+    <p class="date">Effective date: October 30, 2026</p>
+
+    <p>This policy explains how the Chrome extension “My Stock 自選股” (the “Extension”) handles your data. In short: <strong>your data stays in your own browser. The developer cannot see it and does not collect it.</strong></p>
+
+    <h2>Data stored on your device</h2>
+    <p>The following information you enter is stored locally on your computer with <code>chrome.storage.local</code>:</p>
+    <ul>
+      <li>Your watchlists and group names</li>
+      <li>Holdings (shares, average cost), custom names and the cash amount of each group</li>
+      <li>Settings (theme, refresh interval, color convention, fee discount, etc.)</li>
+      <li>A cached public list of stock codes and names (used for search)</li>
+    </ul>
+    <p>This data is never uploaded to the developer or any server and is not shared with anyone. It is deleted when you remove the Extension.</p>
+
+    <h2>Network requests</h2>
+    <p>To show market data, the Extension requests public data directly from the sources below. Only the <strong>stock codes</strong> being looked up are sent; your holdings, costs and any personal information are never sent:</p>
+    <ul>
+      <li>Taiwan Stock Exchange market information service (mis.twse.com.tw): real-time quotes</li>
+      <li>Yahoo Taiwan Stock (tw.stock.yahoo.com) and Yahoo Finance (query1/query2.finance.yahoo.com): intraday price data</li>
+      <li>TWSE OpenAPI (openapi.twse.com.tw) and TPEx OpenAPI (www.tpex.org.tw): lists of stock codes and names</li>
+    </ul>
+    <p>As with visiting any website, these services may log technical information needed for the connection (such as IP address) under their own privacy policies. The Extension is not affiliated with any of them.</p>
+
+    <h2>What we do not do</h2>
+    <ul>
+      <li>We do not collect, sell or transfer any user data</li>
+      <li>We do not use analytics, tracking or advertising services</li>
+      <li>We do not read the content of the web pages you visit</li>
+      <li>We do not run code downloaded from the internet</li>
+    </ul>
+
+    <h2>Export and import</h2>
+    <p>You can export your lists as CSV or JSON files, which are saved only where you choose. Imported files are processed only inside your browser.</p>
+
+    <h2>Changes</h2>
+    <p>If this policy changes, this page and its effective date will be updated.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about this policy: <a href="mailto:hank222@gmail.com">hank222@gmail.com</a></p>
+  </section>
+</main>
+</body>
+</html>

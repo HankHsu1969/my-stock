@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <title>商店截圖 1：彈出視窗</title>
+  <style>
+    html, body { margin: 0; width: 1280px; height: 800px; overflow: hidden; }
+    body {
+      box-sizing: border-box;
+      display: flex; align-items: center; gap: 40px;
+      padding: 0 56px;
+      background: linear-gradient(135deg, #e6efff 0%, #f6f9ff 55%, #e4f3ff 100%);
+      color: #1c2330;
+      font-family: "Microsoft JhengHei", "Segoe UI", sans-serif;
+    }
+    .copy { width: 400px; flex: none; }
+    .copy img { width: 76px; height: 76px; display: block; }
+    h1 { margin: 20px 0 14px; font-size: 40px; line-height: 1.25; font-weight: 800; letter-spacing: 1px; }
+    .lead { margin: 0 0 30px; font-size: 18px; line-height: 1.65; color: #4a5568; }
+    ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 14px; font-size: 17px; line-height: 1.5; }
+    li { display: flex; gap: 12px; }
+    li::before { content: ''; flex: none; width: 8px; height: 8px; margin-top: 9px; border-radius: 50%; background: #2f7bff; }
+    .frame {
+      flex: none; width: 780px; height: 600px;
+      border-radius: 16px; overflow: hidden; background: #fff;
+      box-shadow: 0 24px 60px rgba(30, 60, 120, .22), 0 0 0 1px rgba(30, 60, 120, .08);
+      transform: scale(.93); transform-origin: left center;
+    }
+    iframe { display: block; width: 780px; height: 600px; border: 0; }
+  </style>
+</head>
+<body>
+  <div class="copy">
+    <img src="../../icons/icon128.png" alt="">
+    <h1>台股自選股<br>持股損益一眼看清</h1>
+    <p class="lead">點一下工具列，就能看到自選股的即時報價與走勢，並自動算出總資產與損益。</p>
+    <ul>
+      <li>證交所即時報價、當日走勢、漲跌停提示</li>
+      <li>輸入張數與均價，即時計算未實現與今日損益</li>
+      <li>多個分組管理，可匯出 CSV、JSON 備份</li>
+      <li>淺色、深色主題，預設跟隨系統</li>
+    </ul>
+  </div>
+  <div class="frame"><iframe id="app"></iframe></div>
+  <script type="module">
+    import { seed } from './demo-data.js';
+    seed('light');
+    document.getElementById('app').src = '../../popup.html';
+  </script>
+</body>
+</html>
