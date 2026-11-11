@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "My Stock 自選股",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "台股自選清單：即時報價與走勢、多組分組，記錄持有張數與均價，自動計算總資產與損益。",
   "action": {
     "default_popup": "popup.html",

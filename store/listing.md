@@ -6,7 +6,7 @@
 
 | 用途 | 檔案 |
 | --- | --- |
-| 上傳的套件 | `dist/my-stock-1.2.1.zip` |
+| 上傳的套件 | `dist/my-stock-1.2.2.zip` |
 | 商店圖示 128×128 | `icons/icon128.png`（後台要求另外上傳時用這張） |
 | 螢幕截圖 1280×800 | `store/screenshot-1-popup.png`、`store/screenshot-2-dark.png` |
 | 小型宣傳圖塊 440×280 | `store/promo-tile-440x280.png` |
@@ -122,10 +122,10 @@ https://sites.google.com/view/mystock-privacy
 ## 5. 送出前檢查
 
 - [ ] 已註冊開發人員帳號（一次性 5 美元，帳號需開啟兩步驟驗證）
-- [ ] 上傳 `dist/my-stock-1.2.1.zip`
+- [ ] 上傳 `dist/my-stock-1.2.2.zip`
 - [ ] 填好商店資訊、上傳 2 張截圖與宣傳圖塊
 - [ ] 隱私權政策已放上公開網址，聯絡 Email 已填入
 - [ ] 隱私權實務各欄位已填
 - [ ] 送審（通常需要幾天）
 
-**之後更新版本**：修改程式後，先提高 `manifest.json` 的 `version`（例如 1.2.1 → 1.2.2），重新打包上傳，再送審。
+**之後更新版本**：修改程式後，先提高 `manifest.json` 的 `version`（例如 1.2.2 → 1.2.3），重新打包上傳，再送審。
