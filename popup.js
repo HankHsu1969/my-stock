@@ -301,9 +301,10 @@ function rowHTML({ item, quote: q, calc }) {
   const hold = calc.held
     ? `<b>${money(pf.fmtLots(item.lots))}</b> 張<br><span class="muted">均 ${money(pf.fmtPrice(Number(item.cost) || 0))}</span>`
     : '<span class="add-hold">＋持股</span>';
-  // 資產：上方投入成本，下方股票現值
+  // 成本/現值：上方投入成本（灰色），下方股票現值；現值高於成本為「漲」色，低於成本為「跌」色
+  const mvDir = calc.mv != null ? pf.trend(Math.round(calc.mv - calc.costTotal)) : 'muted';
   const asset = calc.held
-    ? `<span class="muted">${money(pf.fmtInt(calc.costTotal))}</span><br><b>${calc.mv != null ? money(pf.fmtInt(calc.mv)) : '—'}</b>`
+    ? `<span class="muted">${money(pf.fmtInt(calc.costTotal))}</span><br><b class="${mvDir}">${calc.mv != null ? money(pf.fmtInt(calc.mv)) : '—'}</b>`
     : '<span class="muted">—</span>';
   const pnl = calc.held
     ? `<span class="${pnlDir}">${money(pf.fmtSigned(calc.pnl))}<br>${pf.fmtPct(calc.pnlPct)}</span>`

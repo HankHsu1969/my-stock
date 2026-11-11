@@ -229,8 +229,8 @@ body.tab-mode .stock .name { max-width: 200px; }
 .chg, .hold, .asset, .pnl { font-size: 12.5px; line-height: 1.45; }
 .chg { min-width: 72px; }
 
-.spark-col { width: 104px; }
-.spark { width: 104px; padding-top: 4px !important; padding-bottom: 4px !important; }
+.spark-col, .spark { width: 116px; padding-left: 20px !important; padding-right: 0 !important; }
+.spark { padding-top: 4px !important; padding-bottom: 4px !important; }
 .spark svg { display: block; width: 96px; height: 32px; overflow: visible; }
 .spark .base { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 2 2; opacity: .55; }
 .spark .stroke { fill: none; stroke-width: 1.4; stroke-linejoin: round; }
@@ -243,7 +243,7 @@ body.tab-mode .stock .name { max-width: 200px; }
 .spark .dot-down { fill: var(--down); }
 .spark .dot-flat { fill: var(--muted); }
 
-.hold { min-width: 76px; }
+.hold { width: 1%; padding-left: 30px !important; white-space: nowrap; } /* 收窄到內容寬度，讓走勢與持有之間的空白固定 */
 .asset { min-width: 86px; }
 .asset b { font-weight: 600; }
 .hold:hover, .asset:hover, .pnl:hover { text-decoration: underline dotted var(--muted); text-underline-offset: 3px; }
