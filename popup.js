@@ -291,13 +291,20 @@ function rowHTML({ item, quote: q, calc }) {
         : '';
   const flash = state.flashes.has(item.code) ? `flash-${state.flashes.get(item.code)}` : '';
   const arrow = dir === 'up' ? '▲' : dir === 'down' ? '▼' : '';
-  const hl = (v) => (q && v != null && q.prevClose != null ? pf.trend(v - q.prevClose) : '');
   const pnlDir = calc.pnl == null ? '' : pf.trend(Math.round(calc.pnl));
   const dayDir = calc.dayPnl == null ? '' : pf.trend(Math.round(calc.dayPnl));
 
+  // 漲跌：上方今日漲跌幅，下方今日損益（沒有持股時顯示 —）
+  const chg = `${q?.traded ? `${arrow} ${pf.fmtPct(Math.abs(q.changePct), false)}` : '—'}<br>${
+    calc.dayPnl != null ? `<span class="${dayDir}">${money(pf.fmtSigned(calc.dayPnl))}</span>` : '<span class="muted">—</span>'
+  }`;
   const hold = calc.held
     ? `<b>${money(pf.fmtLots(item.lots))}</b> 張<br><span class="muted">均 ${money(pf.fmtPrice(Number(item.cost) || 0))}</span>`
     : '<span class="add-hold">＋持股</span>';
+  // 資產：上方投入成本，下方股票現值
+  const asset = calc.held
+    ? `<span class="muted">${money(pf.fmtInt(calc.costTotal))}</span><br><b>${calc.mv != null ? money(pf.fmtInt(calc.mv)) : '—'}</b>`
+    : '<span class="muted">—</span>';
   const pnl = calc.held
     ? `<span class="${pnlDir}">${money(pf.fmtSigned(calc.pnl))}<br>${pf.fmtPct(calc.pnlPct)}</span>`
     : '<span class="muted">—</span>';
@@ -309,13 +316,11 @@ function rowHTML({ item, quote: q, calc }) {
       <div class="name">${esc(displayName(item)) || '&nbsp;'}</div>
     </td>
     <td class="num price ${dir} ${limit} ${flash}"><span>${q ? pf.fmtPrice(q.price) : '…'}</span></td>
-    <td class="num chg ${dir}">${q?.traded ? `${arrow} ${pf.fmtPrice(Math.abs(q.change))}<br>${pf.fmtPct(Math.abs(q.changePct), false)}` : '—'}</td>
-    <td class="num hl"><span class="${hl(q?.high)}">${pf.fmtPrice(q?.high)}</span><span class="${hl(q?.low)}">${pf.fmtPrice(q?.low)}</span></td>
+    <td class="num chg ${dir}" title="上：今日漲跌幅　下：今日損益">${chg}</td>
     <td class="spark">${sparkline(item.code, state.charts.get(item.code), q)}</td>
     <td class="num wide">${q?.volume != null ? pf.fmtInt(q.volume) : '—'}</td>
     <td class="num hold" data-act="edit" title="編輯持股">${hold}</td>
-    <td class="num wide">${calc.mv != null ? money(pf.fmtInt(calc.mv)) : '—'}</td>
-    <td class="num wide daypnl ${dayDir}">${calc.dayPnl != null ? money(pf.fmtSigned(calc.dayPnl)) : '—'}</td>
+    <td class="num asset" data-act="edit" title="上：投入成本　下：股票現值">${asset}</td>
     <td class="num pnl" data-act="edit" title="編輯持股">${pnl}</td>
     <td class="num wide muted">${esc(q?.time || '—')}</td>
     <td class="act"><button data-act="edit" title="編輯">✎</button><button data-act="del" title="移除">✕</button></td>

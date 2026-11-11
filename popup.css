@@ -226,8 +226,8 @@ body.tab-mode .stock .name { max-width: 200px; }
 .down { color: var(--down); }
 .flat { color: var(--text); }
 .muted { color: var(--muted); }
-.chg, .hl, .hold, .pnl, .daypnl { font-size: 12.5px; line-height: 1.45; }
-.hl span { display: block; }
+.chg, .hold, .asset, .pnl { font-size: 12.5px; line-height: 1.45; }
+.chg { min-width: 72px; }
 
 .spark-col { width: 104px; }
 .spark { width: 104px; padding-top: 4px !important; padding-bottom: 4px !important; }
@@ -244,7 +244,9 @@ body.tab-mode .stock .name { max-width: 200px; }
 .spark .dot-flat { fill: var(--muted); }
 
 .hold { min-width: 76px; }
-.hold:hover, .pnl:hover { text-decoration: underline dotted var(--muted); text-underline-offset: 3px; }
+.asset { min-width: 86px; }
+.asset b { font-weight: 600; }
+.hold:hover, .asset:hover, .pnl:hover { text-decoration: underline dotted var(--muted); text-underline-offset: 3px; }
 .add-hold { color: var(--accent); font-size: 12px; opacity: .75; }
 tr:hover .add-hold { opacity: 1; }
 .pnl { min-width: 86px; font-weight: 600; }
